@@ -23,6 +23,11 @@ class MapFragment : Fragment() {
     //binding
     private lateinit var binding: FragmentMapBinding
 
+    //other
+    //initial these variables with iran location
+    private var longitude: Double = 53.68
+    private var latitude: Double = 32.42
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -38,26 +43,43 @@ class MapFragment : Fragment() {
         //initialize the osmdroid configuration
         Configuration.getInstance()
             .load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()))
+        // initial map view for first time
+        initialMapForFirstTime()
+        //set event listener for map view
+        // by this code user can choose location for search
+        mapEventListener()
+        //search btn clickListener
+        binding.searchBtn.setOnClickListener {
+            //Todo: send latitude and longitude to weather fragment
+        }
 
+
+    }
+
+    private fun initialMapForFirstTime() {
         binding.apply {
-            // initial map view for first time
             map.setTileSource(TileSourceFactory.MAPNIK)
             val mapController = map.controller
-            mapController.setZoom(9.5)
-            val startPoint = GeoPoint(48.8583, 2.2944)
+            mapController.setZoom(6.0)
+            val startPoint = GeoPoint(latitude, longitude)
             mapController.setCenter(startPoint)
-            //set event listener for map view
-            // by this code user can choose location for search
-            var mReceive: MapEventsReceiver = object : MapEventsReceiver {
+        }
+    }
+
+    private fun mapEventListener() {
+        binding.apply {
+            val mReceive: MapEventsReceiver = object : MapEventsReceiver {
                 override fun singleTapConfirmedHelper(geoPoint: GeoPoint): Boolean {
                     Marker(map).apply {
                         this.position = geoPoint
+                        latitude =
+                            geoPoint.latitude.toString().subSequence(0, 6).toString().toDouble()
+                        longitude =
+                            geoPoint.longitude.toString().subSequence(0, 6).toString().toDouble()
                         this.icon = ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.baseline_location_on_24
                         )
-                        Toast.makeText(requireContext(), geoPoint.toString(), Toast.LENGTH_SHORT)
-                            .show()
                         this.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
                         //remove last marker
                         map.overlays.forEach { (it as? Marker)?.remove(map) }
@@ -72,11 +94,10 @@ class MapFragment : Fragment() {
                     return false
                 }
             }
+            //add event to map view
             val overlayEvents = MapEventsOverlay(mReceive)
             map.overlays.add(overlayEvents)
         }
-
-
     }
 
     override fun onResume() {
