@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import com.example.academy_weather.R
 import com.example.academy_weather.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     //binding

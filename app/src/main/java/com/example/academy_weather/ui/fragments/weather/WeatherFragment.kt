@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.academy_weather.R
 import com.example.academy_weather.databinding.FragmentWeatherBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class WeatherFragment : Fragment() {
 
     //binding
