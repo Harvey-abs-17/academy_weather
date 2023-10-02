@@ -9,5 +9,21 @@
 		android:id="@+id/mapFragment"
 		android:name="com.example.academy_weather.ui.fragments.map.MapFragment"
 		android:label="fragment_map"
-		tools:layout="@layout/fragment_map" />
+		tools:layout="@layout/fragment_map" >
+		<action
+			android:id="@+id/action_mapFragment_to_weatherFragment"
+			app:destination="@id/weatherFragment" />
+	</fragment>
+	<fragment
+		android:id="@+id/weatherFragment"
+		android:name="com.example.academy_weather.ui.fragments.weather.WeatherFragment"
+		android:label="fragment_weather"
+		tools:layout="@layout/fragment_weather" >
+		<argument
+			android:name="latitude"
+			app:argType="float" />
+		<argument
+			android:name="longitude"
+			app:argType="float" />
+	</fragment>
 </navigation>

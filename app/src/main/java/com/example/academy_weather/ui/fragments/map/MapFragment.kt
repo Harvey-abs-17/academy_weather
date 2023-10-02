@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import com.example.academy_weather.R
 import com.example.academy_weather.databinding.FragmentMapBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,7 +52,7 @@ class MapFragment : Fragment() {
         mapEventListener()
         //search btn clickListener
         binding.searchBtn.setOnClickListener {
-            //Todo: send latitude and longitude to weather fragment
+            findNavController().navigate(MapFragmentDirections.actionMapFragmentToWeatherFragment(latitude.toFloat(), longitude.toFloat()))
         }
 
 
@@ -74,9 +75,9 @@ class MapFragment : Fragment() {
                     Marker(map).apply {
                         this.position = geoPoint
                         latitude =
-                            geoPoint.latitude.toString().subSequence(0, 6).toString().toDouble()
+                            geoPoint.latitude.toString().subSequence(0, 5).toString().toDouble()
                         longitude =
-                            geoPoint.longitude.toString().subSequence(0, 6).toString().toDouble()
+                            geoPoint.longitude.toString().subSequence(0, 5).toString().toDouble()
                         this.icon = ContextCompat.getDrawable(
                             requireContext(),
                             R.drawable.baseline_location_on_24

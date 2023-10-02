@@ -1,5 +1,6 @@
-package com.example.academy_weather.data.model
+package com.example.academy_weather.data.service
 
+import com.example.academy_weather.data.model.WeatherResponse
 import com.example.academy_weather.utils.API_KEY
 import io.reactivex.rxjava3.core.Observable
 import retrofit2.http.GET

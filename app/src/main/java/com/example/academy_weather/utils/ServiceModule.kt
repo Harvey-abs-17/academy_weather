@@ -1,6 +1,6 @@
 package com.example.academy_weather.utils
 
-import com.example.academy_weather.data.model.ApiServices
+import com.example.academy_weather.data.service.ApiServices
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
