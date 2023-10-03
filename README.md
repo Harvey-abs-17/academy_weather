@@ -6,6 +6,8 @@
 <p align="center">
 <img width="400" height="800" src="https://github.com/Harvey-abs-17/academy_weather/assets/138676273/78b064f5-6f2c-447e-a88e-aaa953627af7"/>
 <img width="400" height="800" src="https://github.com/Harvey-abs-17/academy_weather/assets/138676273/01dad77c-8919-466e-b4b7-a64a60e94737"/>
+ &nbsp;&nbsp; <img src="https://github.com/Harvey-abs-17/academy_weather/blob/master/Animation.gif" width="400" height="800">&nbsp;&nbsp;
+  
 </p> &nbsp;&nbsp;
 <h2 align="left">Patterns and Third party libraries applied</h2> &nbsp;&nbsp;
 <ol>
