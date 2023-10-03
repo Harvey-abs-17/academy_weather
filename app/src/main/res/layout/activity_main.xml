@@ -20,5 +20,41 @@
 		app:layout_constraintTop_toTopOf="parent"
 		app:layout_constraintBottom_toBottomOf="parent"/>
 	
+	<!--  connection layout 	-->
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/connection_layout"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="?colorOnSecondary"
+		android:visibility="gone"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent">
+		
+		<ImageView
+			android:id="@+id/connection_image"
+			android:layout_width="200dp"
+			android:layout_height="200dp"
+			android:src="@drawable/baseline_signal_wifi_statusbar_connected_no_internet_4_24"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:tint="?colorSecondary" />
+		
+		<TextView
+			style="@style/simple_text_style"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="No internet connection"
+			android:textColor="?colorSecondary"
+			app:layout_constraintEnd_toEndOf="@id/connection_image"
+			app:layout_constraintStart_toStartOf="@id/connection_image"
+			app:layout_constraintTop_toBottomOf="@id/connection_image"/>
+	
+	
+	</androidx.constraintlayout.widget.ConstraintLayout>
+	
 	
 </androidx.constraintlayout.widget.ConstraintLayout>

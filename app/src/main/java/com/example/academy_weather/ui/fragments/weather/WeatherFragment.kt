@@ -6,19 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.academy_weather.R
 import com.example.academy_weather.data.model.WeatherResponse
 import com.example.academy_weather.databinding.FragmentWeatherBinding
-import com.example.academy_weather.utils.isNetworkAvailable
 import com.example.academy_weather.utils.showView
-import com.github.pwittchen.reactivenetwork.library.rx2.ReactiveNetwork
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -45,15 +39,6 @@ class WeatherFragment : Fragment(), WeatherContract.View {
         super.onViewCreated(view, savedInstanceState)
         //get data from internet
         presenter.callWeatherResponsePresenter("${navArgs.latitude},${navArgs.longitude}")
-        //check internet connection
-        ReactiveNetwork
-            .observeNetworkConnectivity(context)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{
-                showInternetError(it.available())
-            }
-
         //back button
         binding.apply {
             detailBackBtn.setOnClickListener {
@@ -76,41 +61,29 @@ class WeatherFragment : Fragment(), WeatherContract.View {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     override fun loadData(weather: WeatherResponse) {
         binding.apply {
             detailActionBarTitle.text = weather.location?.region
             locationName.text = weather.location?.tzId
             timeTxt.text = weather.location?.localtime
+            // api does not support images :(((
             Picasso.get()
-                .load(weather.current?.condition?.icon)
+                .load("${weather.current?.condition?.icon}")
                 .into(weatherImage)
             currentTempTxt.text = weather.current?.tempC.toString()
             weatherSituationTxt.text = weather.current?.condition?.text
-            windSpeedTxt.text = weather.current?.windKph.toString()
-            humidityTxt.text = weather.current?.humidity.toString()
+            windSpeedTxt.text = "${weather.current?.windKph.toString()} Kph"
+            humidityTxt.text = "${weather.current?.humidity.toString()}%"
             windDirectionTxt.text = weather.current?.windDir
             pressureTxt.text = weather.current?.pressureIn.toString()
-            visibilityTxt.text = weather.current?.visKm.toString()
+            visibilityTxt.text = "${weather.current?.visKm.toString()} Km"
             uvTxt.text = weather.current?.uv.toString()
 
         }
     }
 
-    override fun checkInternet(): Boolean {
-        return requireContext().isNetworkAvailable()
-    }
 
-    override fun showInternetError(isShow: Boolean) {
-        binding.apply {
-            if (isShow){
-                mainInfoLayout.showView(true)
-                connectionLayout.showView(false)
-            }else{
-                mainInfoLayout.showView(false)
-                connectionLayout.showView(true)
-            }
-        }
-    }
 
     override fun onStop() {
         super.onStop()

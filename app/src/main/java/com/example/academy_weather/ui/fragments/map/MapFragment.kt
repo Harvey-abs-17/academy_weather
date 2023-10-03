@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import com.example.academy_weather.R
@@ -42,18 +41,18 @@ class MapFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //initialize the osmdroid configuration
-        Configuration.getInstance()
-            .load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()))
-        // initial map view for first time
-        initialMapForFirstTime()
-        //set event listener for map view
-        // by this code user can choose location for search
-        mapEventListener()
-        //search btn clickListener
-        binding.searchBtn.setOnClickListener {
-            findNavController().navigate(MapFragmentDirections.actionMapFragmentToWeatherFragment(latitude.toFloat(), longitude.toFloat()))
-        }
+            //initialize the osmdroid configuration
+            Configuration.getInstance()
+                .load(requireContext(), PreferenceManager.getDefaultSharedPreferences(requireContext()))
+            // initial map view for first time
+            initialMapForFirstTime()
+            //set event listener for map view
+            // by this code user can choose location for search
+            mapEventListener()
+            //search btn clickListener
+            binding.searchBtn.setOnClickListener {
+                findNavController().navigate(MapFragmentDirections.actionMapFragmentToWeatherFragment(latitude.toFloat(), longitude.toFloat()))
+            }
 
 
     }
@@ -61,6 +60,16 @@ class MapFragment : Fragment() {
     private fun initialMapForFirstTime() {
         binding.apply {
             map.setTileSource(TileSourceFactory.MAPNIK)
+            Marker(map).apply {
+                this.position = GeoPoint(latitude, longitude)
+                this.icon = ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.baseline_location_on_24
+                )
+                this.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+                map.overlays.add(this)
+                map.postInvalidate()
+            }
             val mapController = map.controller
             mapController.setZoom(6.0)
             val startPoint = GeoPoint(latitude, longitude)

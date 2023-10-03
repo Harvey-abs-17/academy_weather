@@ -8,8 +8,6 @@ interface WeatherContract {
         fun showLoading()
         fun hideLoading()
         fun loadData( weather :WeatherResponse )
-        fun checkInternet() :Boolean
-        fun showInternetError( isShow :Boolean )
     }
 
     interface Presenter{

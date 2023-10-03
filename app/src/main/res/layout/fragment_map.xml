@@ -6,26 +6,39 @@
 	android:layout_height="match_parent"
 	tools:context=".ui.fragments.map.MapFragment">
 	
-	<org.osmdroid.views.MapView
-		android:id="@+id/map"
+	<androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		android:id="@+id/main_layout">
+		
+		<org.osmdroid.views.MapView
+			android:id="@+id/map"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
+		
+		<androidx.appcompat.widget.AppCompatButton
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginHorizontal="20dp"
+			android:layout_marginBottom="?actionBarSize"
+			android:background="@drawable/bg_search_button"
+			android:text="@string/search_for_current_weather"
+			android:textColor="@color/white"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			android:id="@+id/search_btn"/>
+		
+		
+	</androidx.constraintlayout.widget.ConstraintLayout>
 	
-	<androidx.appcompat.widget.AppCompatButton
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:layout_marginHorizontal="20dp"
-		android:layout_marginBottom="?actionBarSize"
-		android:background="@drawable/bg_search_button"
-		android:text="@string/search_for_current_weather"
-		android:textColor="@color/white"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		android:id="@+id/search_btn"/>
+	
 
 </androidx.constraintlayout.widget.ConstraintLayout>
